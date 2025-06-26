@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Mis Reservas{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-5" data-aos="fade-down">
+        <h1 class="display-4">Mis Rituales</h1>
+        <a href="{% url 'home' %}" class="btn btn-primary d-none d-md-inline-flex">
+            <i class="bi bi-plus-circle-fill me-2"></i>Agendar Nuevo Ritual
+        </a>
+    </div>
+
+    <div class="row g-5">
+        <div class="col-lg-8">
+            <h2 class="mb-4" data-aos="fade-right">Próximas Citas</h2>
+            {% if proximas %}
+                {% for reserva in proximas %}
+                <div class="card-glass appointment-card mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+                    <div class="card-body">
+                        <div class="d-flex flex-column flex-md-row justify-content-between">
+                            <div>
+                                <h4 class="card-title text-primary mb-1">{{ reserva.servicio.nombre }}</h4>
+                                <p class="text-muted mb-3">{{ reserva.fecha_hora|date:"l, d \d\e F, Y - H:i" }} hrs.</p>
+                            </div>
+                            <div class="mb-3 mb-md-0">
+                                <span class="badge rounded-pill fs-6 status-{{ reserva.estado }}">{{ reserva.get_estado_display }}</span>
+                            </div>
+                        </div>
+                        <hr class="border-primary-glow">
+                        <div class="d-flex justify-content-end">
+                            {% if reserva.estado == 'pendiente' or reserva.estado == 'confirmada' %}
+                            <a href="{% url 'cancelar_mi_reserva' reserva.id %}" class="btn btn-outline-danger btn-sm" onclick="return confirm('¿Estás segura de que quieres cancelar esta cita?');">
+                                <i class="bi bi-x-circle me-2"></i>Cancelar Cita
+                            </a>
+                            {% else %}
+                            <p class="text-muted fst-italic mb-0">Esta cita no puede ser modificada.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="card-glass empty-state-card text-center p-5" data-aos="fade-up">
+                    <i class="bi bi-calendar-heart display-1 text-primary-glow"></i>
+                    <p class="mt-4 fs-5">No tienes ninguna cita agendada.</p>
+                    <p class="text-muted">Es un buen momento para consentirte.</p>
+                    <a href="{% url 'home' %}" class="btn btn-primary mt-3">Ver Rituales</a>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="col-lg-4">
+            <h2 class="mb-4" data-aos="fade-left">Historial</h2>
+            {% if pasadas %}
+                {% for reserva in pasadas %}
+                <div class="card-glass-muted p-3 mb-3" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}50">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="mb-0 fw-bold">{{ reserva.servicio.nombre }}</p>
+                            <small class="text-muted">{{ reserva.fecha_hora|date:"d M, Y" }}</small>
+                        </div>
+                        <span class="badge status-{{ reserva.estado }}">{{ reserva.get_estado_display }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                 <div class="card-glass-muted text-center p-4" data-aos="fade-up">
+                    <p class="text-muted mb-0">Tu historial de citas aparecerá aquí.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

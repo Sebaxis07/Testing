@@ -1,0 +1,43 @@
+{% extends "panel/base_panel.html" %}
+
+{% block panel_title %}Editar Usuario{% endblock %}
+
+{% block panel_content %}
+    <h1 class="display-5 mb-4">Editar Usuario: <span class="text-primary">@{{ object.username }}</span></h1>
+
+    <div class="card-glass p-4">
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="{{ form.first_name.id_for_label }}" class="form-label">Nombre</label>
+                    {{ form.first_name }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="{{ form.last_name.id_for_label }}" class="form-label">Apellido</label>
+                    {{ form.last_name }}
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
+                {{ form.email }}
+            </div>
+
+            <hr class="my-4 border-secondary">
+            <h4 class="mb-3">Permisos y Estado</h4>
+            <div class="form-check form-switch mb-2">
+                {{ form.is_staff }}
+                <label class="form-check-label" for="{{ form.is_staff.id_for_label }}">¿Es Administrador? (Personal)</label>
+            </div>
+            <div class="form-check form-switch">
+                {{ form.is_active }}
+                <label class="form-check-label" for="{{ form.is_active.id_for_label }}">¿Cuenta Activa?</label>
+            </div>
+
+            <hr class="my-4 border-secondary">
+
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            <a href="{% url 'panel_lista_usuarios' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+{% endblock %}

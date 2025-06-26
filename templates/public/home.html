@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero-section">
+    <div data-aos="fade-in" data-aos-delay="300">
+        <h1 class="display-1">Santuario de Belleza</h1>
+        <p class="lead fs-4">Donde la elegancia y el cuidado personal se convierten en arte.</p>
+        <a href="#servicios" class="btn btn-primary mt-3">Descubrir Rituales</a>
+    </div>
+</section>
+
+<div class="container">
+    <section class="text-center py-5 my-5">
+        <h2 class="display-5 mb-5" data-aos="fade-up">Una Experiencia Inolvidable</h2>
+        <div class="row">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="p-3">
+                    <i class="bi bi-gem display-4 text-primary"></i>
+                    <h4 class="mt-3">Productos Premium</h4>
+                    <p class="text-muted">Solo utilizamos marcas de lujo, cuidadosamente seleccionadas para tu piel y cabello.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="p-3">
+                    <i class="bi bi-person-check-fill display-4 text-primary"></i>
+                    <h4 class="mt-3">Artistas Expertas</h4>
+                    <p class="text-muted">Nuestro equipo está formado por profesionales apasionadas y en constante formación.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="p-3">
+                    <i class="bi bi-wind display-4 text-primary"></i>
+                    <h4 class="mt-3">Ambiente Relajante</h4>
+                    <p class="text-muted">Un espacio diseñado para tu confort, donde podrás desconectar y renovarte.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicios" class="py-5">
+        <h2 class="text-center display-5 mb-5" data-aos="fade-up">Nuestros Rituales de Belleza</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          {% for servicio in servicios %}
+          <div class="col" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:1 }}00">
+            <div class="card-glass h-100 d-flex flex-column p-4">
+                <div class="text-center">
+                    <h5 class="card-title h3 mt-3">{{ servicio.nombre }}</h5>
+                    <p class="card-text text-muted flex-grow-1">{{ servicio.descripcion|truncatewords:15 }}</p>
+                </div>
+                <div class="mt-4 pt-3 border-top border-secondary-subtle text-center">
+                    <p class="h4 text-primary">${{ servicio.precio|floatformat:0 }}</p>
+                    <p class="small text-muted mb-0"><i class="bi bi-clock"></i> {{ servicio.duracion_minutos }} minutos</p>
+                </div>
+                <a href="{% url 'servicio_detail' servicio.id %}" class="btn btn-outline-primary mt-4 stretched-link">Ver Detalles y Agendar</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+    </section>
+
+    <section class="py-5 my-5">
+        <h2 class="text-center display-5 mb-5" data-aos="fade-up">Lo que dicen nuestras clientas</h2>
+        <div class="row">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card-glass p-4 text-center h-100">
+                    <div class="stars mb-3">
+                        <i class="bi bi-star-fill text-primary"></i><i class="bi bi-star-fill text-primary"></i><i class="bi bi-star-fill text-primary"></i><i class="bi bi-star-fill text-primary"></i><i class="bi bi-star-fill text-primary"></i>
+                    </div>
+                    <blockquote class="blockquote fst-italic">"¡La mejor experiencia! Salí sintiéndome renovada y hermosa. El trato es inigualable."</blockquote>
+                    <figcaption class="blockquote-footer mt-2 text-white">Carla M.</figcaption>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card-glass p-4 text-center h-100">
+                     <div class="stars mb-3">
+                        <i class="bi bi-star-fill text-primary"></i><i class="bi bi-star-fill text-primary"></i><i class="bi bi-star-fill text-primary"></i><i class="bi bi-star-fill text-primary"></i><i class="bi bi-star-fill text-primary"></i>
+                    </div>
+                    <blockquote class="blockquote fst-italic">"El nivel de detalle y profesionalismo es impresionante. Se ha convertido en mi lugar de confianza."</blockquote>
+                    <figcaption class="blockquote-footer mt-2 text-white">Sofía V.</figcaption>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card-glass p-4 text-center h-100">
+                     <div class="stars mb-3">
+                        <i class="bi bi-star-fill text-primary"></i><i class="bi bi-star-fill text-primary"></i><i class="bi bi-star-fill text-primary"></i><i class="bi bi-star-fill text-primary"></i><i class="bi bi-star-fill text-primary"></i>
+                    </div>
+                    <blockquote class="blockquote fst-italic">"Un oasis en medio de la ciudad. Cada visita es un lujo que vale totalmente la pena."</blockquote>
+                    <figcaption class="blockquote-footer mt-2 text-white">Javiera L.</figcaption>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<section class="py-5 mt-5" style="background-color: var(--color-bg-secondary);">
+    <div class="container text-center" data-aos="fade-up">
+        <h2 class="display-4">¿Lista para tu momento?</h2>
+        <p class="lead text-muted">Tu santuario de belleza te espera. Agenda tu ritual hoy mismo.</p>
+        <a href="#servicios" class="btn btn-primary btn-lg mt-3">Ver Todos los Rituales</a>
+    </div>
+</section>
+{% endblock %}

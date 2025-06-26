@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ servicio.nombre }}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-7" data-aos="fade-right">
+            <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=800" class="img-fluid rounded-3 mb-4" alt="{{ servicio.nombre }}">
+        </div>
+        <div class="col-lg-5" data-aos="fade-left" data-aos-delay="200">
+            <h1 class="display-4">{{ servicio.nombre }}</h1>
+            <p class="fs-3 text-primary">${{ servicio.precio|floatformat:0 }}</p>
+            <p class="text-muted"><i class="bi bi-clock"></i> Duración aproximada: {{ servicio.duracion_minutos }} minutos</p>
+            <hr style="border-color: var(--color-primary-glow);">
+            <p class="fs-5">{{ servicio.descripcion }}</p>
+            
+            <div class="d-grid mt-4">
+                <a href="{% url 'crear_reserva' servicio.id %}" class="btn btn-primary">
+                    <i class="bi bi-calendar-heart me-2"></i>Agendar este Ritual
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

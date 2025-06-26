@@ -1,0 +1,72 @@
+{% extends "panel/base_panel.html" %}
+
+{% block panel_title %}Dashboard{% endblock %}
+
+{% block panel_content %}
+    <h1 class="display-5 mb-4" data-aos="fade-down">Resumen del Salón</h1>
+
+    <div class="row" data-aos="fade-up">
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card-glass h-100 p-4 text-center">
+                <i class="bi bi-people-fill display-1 text-primary"></i>
+                <div class="mt-3">
+                    <p class="fs-1 fw-bold mb-0">{{ total_usuarios }}</p>
+                    <p class="text-muted fs-4">Clientas Registradas</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card-glass h-100 p-4 text-center">
+                <i class="bi bi-scissors display-1 text-primary"></i>
+                <div class="mt-3">
+                    <p class="fs-1 fw-bold mb-0">{{ total_servicios }}</p>
+                    <p class="text-muted fs-4">Servicios Ofrecidos</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 mb-4">
+            <div class="card-glass h-100 p-4 text-center">
+                <i class="bi bi-calendar-heart-fill display-1 text-primary"></i>
+                <div class="mt-3">
+                    <p class="fs-1 fw-bold mb-0">{{ total_reservas }}</p>
+                    <p class="text-muted fs-4">Reservas Históricas</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4 border-secondary">
+    <div data-aos="fade-up" data-aos-delay="200">
+        <h2 class="h3 mb-3">Estado del Sistema</h2>
+        
+        {% if reservas_pendientes > 0 %}
+            <div class="alert alert-warning-custom d-flex align-items-center" role="alert">
+                <i class="bi bi-exclamation-triangle-fill fs-2 me-3"></i>
+                <div>
+                    <h4 class="alert-heading">¡Acción Requerida!</h4>
+                    <p>Tienes <strong class="fs-5">{{ reservas_pendientes }}</strong> reserva{% if reservas_pendientes > 1 %}s{% endif %} en estado "Pendiente" que necesitan ser confirmadas.</p>
+                    <a href="{% url 'panel_lista_reservas' %}" class="btn btn-warning">Gestionar Reservas</a>
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-success-custom d-flex align-items-center" role="alert">
+                <i class="bi bi-check-circle-fill fs-2 me-3"></i>
+                <div>
+                    <h4 class="alert-heading">¡Todo en Orden!</h4>
+                    <p class="mb-0">No hay acciones pendientes. El sistema está activo y funcionando correctamente.</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+
+{% block panel_scripts %}
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 600,
+            once: true,
+        });
+    </script>
+{% endblock %}
