@@ -75,10 +75,15 @@ WSGI_APPLICATION = 'proyecto_servicios.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'BD03',
+        'USER': 'admin',
+        'PASSWORD': 'Admin123',
+        'HOST': 'base03.cp4oou020jmn.us-east-1.rds.amazonaws.com',
+        'PORT': '3306',
     }
 }
+
 
 
 # Password validation
